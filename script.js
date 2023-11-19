@@ -256,7 +256,7 @@ function productTableData(data, type) {
             table += '<td>' + data[i].DateOfExpense + '</td>';
             table += '<td>' + data[i].Description + '</td>';
             // Add an input field for quantity editing
-            table += '<td><input type="number" name="' + data[i].Product_ID + '" value=' + data[i].Quantity + '></td>';
+            /* table += '<td><input type="number" name="' + data[i].Product_ID + '" value=' + data[i].Quantity + '></td>'; */
             table += '</tr>';
 
         }
@@ -280,8 +280,8 @@ function productTableData(data, type) {
             table += '<td>' + data[i].DateOfExpense + '</td>';
             table += '<td>' + data[i].Description + '</td>';
             // Add an input field for quantity editing
-       /*      table += '<td> <input type="checkbox" name="' + data[i].Product_ID + '"value="Y"></td>'
-            */
+            table += '<td> <input type="checkbox" name="' + data[i].Product_ID + '"value="Y"></td>'
+            
             table += '</tr>';
 
         }
