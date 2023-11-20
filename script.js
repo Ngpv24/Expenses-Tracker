@@ -4,6 +4,7 @@ $(document).ready(function() {
  $('#addTransaction, #updateProduct, #AddTypeOfIncome').hide();
  
  displayExpensesTable();
+ checkCookieAndRedirect();
 
  /*Display Product Table*/
  $('#home_tab').on('click', function() {
@@ -26,7 +27,7 @@ $('#income_add_tab').on('click', function() {
 });
 
  //display update product
- $('#update_tab').on('click', function() {
+ $('#update_expenses_opt').on('click', function() {
     $('#addTransaction, #show_tables, #removeProduct, #AddTypeOfIncome, #box_calculations').hide();
     $('#updateProduct').show();
     showEditableQuantity();
@@ -34,7 +35,7 @@ $('#income_add_tab').on('click', function() {
   });
 
   //display remove product 
-  $('#remove_tab').on('click', function() {
+  $('#dlt_expenses_opt').on('click', function() {
     $('#addTransaction, #show_tables, #updateProduct, #AddTypeOfIncome, #box_calculations').hide();
     $('#removeProduct').show();
     showCheckboxDelProduct();
@@ -42,7 +43,7 @@ $('#income_add_tab').on('click', function() {
 
 
   //from index.html submit button
-  $('#insert_product').on('click', function(event) {   
+  $('#insert_expenses').on('click', function(event) {   
     event.preventDefault();
     addProduct();
   });
@@ -55,7 +56,7 @@ $('#income_add_tab').on('click', function() {
         dataType: 'json',
         success: function (data) {
             if (data.length > 0) {
-                var table = productTableData(data, 'Display');
+                var table = expensesTableData(data, 'Display');
                 $('#expenses_table').html(table);
                 $('#income_table').html(table);
                 
@@ -71,29 +72,7 @@ $('#income_add_tab').on('click', function() {
 
  }//End display product
 
-  //Display product table - home
-  function displayTypeOfIncome(){ 
-    $.ajax({
-        url: 'display_table.php', 
-        type: 'GET',
-        data: {
-            table: 'income'
-        },
-        dataType: 'json',
-        success: function (data) {
-            if (data.length > 0) {
-                var table = productTableData(data, 'Display');
-                $('#product_table').html(table);
-                
-            } else {
-                $('#product_table').html('No data found.');
-            }
-        },
-        error: function (xhr, status, error) {
-            $('#product_table').html('Error: ' + error);
-        }
-    });
- }//End display product
+  
 
  function addProduct() {
 
@@ -140,7 +119,7 @@ $('#income_add_tab').on('click', function() {
         dataType: 'json',
         success: function (data) {
             if (data.length > 0) {
-                var table = productTableData(data, 'Update');
+                var table = expensesTableData(data, 'Update');
 
                 $('#updateProduct').html(table);
 
@@ -186,7 +165,7 @@ function showCheckboxDelProduct(){
         dataType: 'json',
         success: function (data) {
             if (data.length > 0) {
-                var table = productTableData(data, 'Remove');
+                var table = expensesTableData(data, 'Remove');
 
                 $('#removeProduct').html(table);
 
@@ -223,7 +202,7 @@ function removeProduct(formData) {
     })  
 }
 
-function productTableData(data, type) {
+function expensesTableData(data, type) {
    
      if(type == "Display") { 
         var table = '<table class="table-styled my-4">';
@@ -294,5 +273,31 @@ function productTableData(data, type) {
 
     return table;  
 }
+
+/*Redirect to login if cookies end */
+function checkCookieAndRedirect() {
+    var cookie = getCookie("customer_id"); 
+    if (cookie === null || cookie === "") {
+        window.location.href = 'login.html'; 
+    }
+}
+
+/*Function to get cookie - source: w3schools*/
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}//End function
+
 
 });

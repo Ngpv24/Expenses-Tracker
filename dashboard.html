@@ -23,6 +23,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
+
+                        <a href="profile.html">
+                            <img src="images/un.jpg" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+                        </a>
+
                         <li class="nav-item">
                             <button class="nav-link" id="home_tab" style="color:black">View Expenses</button>
                         </li>
@@ -32,12 +37,32 @@
                         <li class="nav-item">     
                             <button class="nav-link" id="income_add_tab" style="color:black">Add Income</button>
                         </li>
-                        <li class="nav-item">
-                            <button class="nav-link" id="update_tab" style="color:black">Update</button>
+
+                        <!-- Update drowpdown -->
+                        <li class="nav-item dropdown">
+                            <button class="nav-link dropdown-toggle" id="updateDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black">
+                                Update Records
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="updateDropdown">
+                                <button class="dropdown-item custom-dropdown-button" id="update_expenses_opt" style="color:black">Update Expenses</button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item custom-dropdown-button" id="update_income_opt" style="color:black">Update Income</button>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <button class="nav-link" id="remove_tab" style="color:black">Remove</button>
+
+                        <!-- Remove dropdown -->
+                        <li class="nav-item dropdown">
+                            <button class="nav-link dropdown-toggle" id="updateDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black">
+                                Remove Records
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="updateDropdown">
+                                <button class="dropdown-item custom-dropdown-button" id="dlt_expenses_opt" style="color:black">Remove Expenses</button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item custom-dropdown-button" id="dlt_income_opt" style="color:black">Remove Income</button>
+  
+                            </div>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -112,7 +137,7 @@
                 <label for="quantity">Quantity: </label>
                 <input type="text" id="quantity" name="quantity"> <br>
             
-                <button type="submit" id="insert_product">Submit</button>
+                <button type="submit" id="insert_expenses">Submit</button>
             </form>
         </div>
     </div>
