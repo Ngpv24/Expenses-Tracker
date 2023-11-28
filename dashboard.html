@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Hello, world!</title>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script src="expenses_script.js"></script>
+    <script src="income_script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body style="background-color: rgb(219, 218, 213); display: flex; flex-direction: column; min-height: 100vh;">
@@ -29,10 +30,10 @@
                         </a>
 
                         <li class="nav-item">
-                            <button class="nav-link" id="home_tab" style="color:black">View Expenses</button>
+                            <button class="nav-link" id="home_tab" style="color:black">Overview</button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link" id="product_tab" style="color:black">Add Expenses</button>
+                            <button class="nav-link" id="expenses_add_tab" style="color:black">Add Expenses</button>
                         </li>
                         <li class="nav-item">     
                             <button class="nav-link" id="income_add_tab" style="color:black">Add Income</button>
@@ -69,9 +70,13 @@
         </nav>
     </header>  
 
+    <div class="d-flex justify-content-center align-items-center flex-wrap my-3" >
+        <h3 id="app_title">Income - Expenses Tracker</h3>
+    </div>
+
     <!--Show Up Total Income/Expenses/Remaining Money-->
     <div id="box_calculations">
-        <div class="d-flex justify-content-center align-items-center flex-wrap my-5">
+        <div class="d-flex justify-content-center align-items-center flex-wrap my-3">
             <div class="card mx-2" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Total Income</h5>
@@ -112,30 +117,20 @@
 
     <!--Show Add Transaction Form-->
     <div id="addTransaction">
-        <div class="add-container" style="display:flex; flex-direction: column; align-items:center; margin:20px;">    
+        <div class="add-container" style="display:flex; flex-direction: column; align-items:center; margin:20px;">  
+            <h3>Enter Expenses Data</h3>  
             <form>     
-                <label for="prod_name">Product Name: </label>
-                <input type="text" id="prod_name" name="prod_name">
-            
-                <label for="description">Description: </label>
-                <input type="text" id="description" name="description">
-        
-                <label for="category">Category: </label>
-                <select id="category" name="category">
-                    <option value="food">Food</option>
-                    <option value="tool">Tool</option>
-                    <option value="stationery">Stationery</option>
-                    <option value="paper">Paper</option>
-                </select>
-        
-                <label for="vendor_id">Vendor ID: </label>
-                <input type="text" id="vendor_id" name="vendor_id">
-            
-                <label for="stock_loc">Stock Location: </label>
-                <input type="text" id="stock_loc" name="stock_loc">
-            
-                <label for="quantity">Quantity: </label>
-                <input type="text" id="quantity" name="quantity"> <br>
+                <label for="amount">Amount: </label>
+                <input type="text" id="expenses_amount" name="expenses_amount">
+
+                <label for="source">Source</label>
+                <input type="text" id="expenses_source" name="expenses_source">
+
+                <label for="dateOfExpenses">Date of Expenses</label>
+                <input type="date" id="date_of_expenses" name="date_of_expenses">
+
+                <label for="income_description">Description</label>
+                <input type="text" id="expenses_desc" name="expenses_desc">
             
                 <button type="submit" id="insert_expenses">Submit</button>
             </form>
@@ -145,6 +140,7 @@
     <!--Show Add Income Form-->
     <div id="AddTypeOfIncome">
         <div class="add-container" style="display:flex; flex-direction: column; align-items:center; margin:20px">
+            <h3>Enter Income Data</h3>
             <form>
                 <label for="amount">Amount: </label>
                 <input type="text" id="income_amount" name="income_amount">
@@ -166,19 +162,17 @@
 
     <!--Show Update-->
     <div class="d-flex justify-content-center align-items-center"> 
-        <div id="updateProduct"></div>
+        <div id="updateExpenses"></div>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center"> 
+        <div id="updateIncome"></div>
     </div>
 
     <!--Show Remove -->
     <div class="d-flex justify-content-center align-items-center"> 
         <div id="removeProduct"></div>
     </div>
-
-    <!--Footer-->
-    <footer style="background-color: rgb(65, 65, 65); color: white; text-align: center; padding: 10px; margin-top: auto;">
-        <p>Name: Joussef Ibarra</p>
-        <p>Course: Information Systems Programming</p>
-    </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
