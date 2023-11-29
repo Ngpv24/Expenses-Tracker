@@ -5,34 +5,28 @@ $(document).ready(function() {
  remaining_balance = 0;
 
  /*Initialize hide all the forms*/   
- $('#addTransaction, #updateExpenses, #AddTypeOfIncome').hide();
+ $('#addExpenses, #updateExpenses, #AddTypeOfIncome').hide();
  
  displayExpensesTable();
  checkCookieAndRedirect();
 
  /*Display Product Table*/
  $('#home_tab').on('click', function() {
-    $('#addTransaction , #updateExpenses, #removeProduct, #AddTypeOfIncome').hide();
+    $('#addExpenses , #updateExpenses, #updateIncome, #removeProduct, #AddTypeOfIncome').hide();
     $('#show_tables, #box_calculations').show();
  });
 
 
  /*Display Add Transaction Form*/
  $('#expenses_add_tab').on('click', function() {
-    $('#addTransaction').show();
-    $('#updateExpenses, #show_tables, #AddTypeOfIncome, #removeProduct, #box_calculations, #app_title').hide();  
+    $('#addExpenses').show();
+    $('#updateExpenses, #updateIncome, #show_tables, #AddTypeOfIncome, #removeProduct, #box_calculations, #app_title').hide();  
   
-});
-
-/*Display Add Income Form */
-$('#income_add_tab').on('click', function() {
-    $('#addTransaction, #updateExpenses, #show_tables, #removeProduct, #box_calculations, #app_title').hide();
-    $('#AddTypeOfIncome').show();
 });
 
  //display update product
  $('#update_expenses_opt').on('click', function() {
-    $('#addTransaction, #show_tables, #updateIncome, #removeProduct, #AddTypeOfIncome, #box_calculations, #app_title').hide();
+    $('#addExpenses, #show_tables, #updateIncome, #removeProduct, #AddTypeOfIncome, #box_calculations, #app_title').hide();
     $('#updateExpenses').show();
     showEditableExpenseTable();
 
@@ -40,7 +34,7 @@ $('#income_add_tab').on('click', function() {
 
   //display remove product 
   $('#dlt_expenses_opt').on('click', function() {
-    $('#addTransaction, #show_tables, #updateExpenses, #AddTypeOfIncome, #box_calculations, #app_title').hide();
+    $('#addExpenses, #show_tables, #updateExpenses, #updateIncome, #AddTypeOfIncome, #box_calculations, #app_title').hide();
     $('#removeProduct').show();
     showCheckboxDelExpenses();
   });
@@ -49,7 +43,7 @@ $('#income_add_tab').on('click', function() {
   //from index.html submit button
   $('#insert_expenses').on('click', function(event) {   
     event.preventDefault();
-    addProduct();
+    addExpenses();
   });
 
  //Display product table - home
@@ -79,34 +73,31 @@ $('#income_add_tab').on('click', function() {
  }//End display product
 
  //change this
- function addProduct() {
+ function addExpenses() {
 
-    var prod_name = $("#prod_name").val();
-    var description = $("#description").val();
-    var category = $("#category").val();
-    var vendor_id = $("#vendor_id").val();
-    var stock_loc = $("#stock_loc").val();
-    var quantity = $("#quantity").val();
+    var amount = $("#expenses_amount").val();
+    var category = $("#expenses_cat").val();
+    var date = $('#date_of_expenses').val();
+    var description = $("#expenses_desc").val();
+    var type = 'expenses'
 
     $.ajax({
-        url: 'add_product.php', 
+        url: 'add_record.php', 
         type: 'POST',
         data: {
-            prod_name:prod_name,
-            description:description,
+            amount:amount,
             category:category,
-            vendor_id:vendor_id,
-            stock_loc:stock_loc,
-            quantity:quantity
+            date:date,
+            description:description,
+            type: type
         },
         success: function (response) {
             if(response == "0") { 
                 alert("Inserted successfully.")
-                $("#prod_name").val('');
+                $("#expenses_amount").val('');
+                $("#expenses_cat").val('');
+                $("#date_of_expenses").val('');
                 $("#description").val('');
-                $("#vendor_id").val('');
-                $("#stock_loc").val('');
-                $("#quantity").val('');
                 location.reload();
             }
             else { 
@@ -116,7 +107,7 @@ $('#income_add_tab').on('click', function() {
     });
  }
 
- //Show table with quantity editable
+ //Show table with editable fields
  function showEditableExpenseTable() {
     $.ajax({
         url: 'display_table.php',
@@ -149,6 +140,7 @@ $('#income_add_tab').on('click', function() {
 
 //update quantity
 function updateExpenses(formData){ 
+
     $.ajax({
         url: 'update_expenses.php',
         type:'POST',
@@ -181,7 +173,8 @@ function showCheckboxDelExpenses(){
 
                 $('#remove').on('submit', function(event){ 
                     event.preventDefault();
-                    var formData =  $(this).serialize();
+                    var formData =  new FormData(this);
+                    formData.append('type', 'expenses');
                     removeExpenses(formData);
                 })
 
@@ -196,13 +189,15 @@ function showCheckboxDelExpenses(){
 }
 
 function removeExpenses(formData) {
+    formData.append('type', 'income')
+  
     $.ajax({
-        url: 'remove_product.php',
+        url: 'remove_expenses.php',
         type:'POST',
         data: formData,
         success: function(response) { 
             if(response == "0") {
-                alert("Product removed successfully.");
+                alert("Product removed successfully: " + response.ExpenseID);
                 location.reload();
             }
             else { 
@@ -213,16 +208,15 @@ function removeExpenses(formData) {
 }
 
 
-
 function expensesTableData(data, type) {
    
      if(type == "Display") { 
         var table = '<table class="table-styled my-4">';
-        table += '<tr><th>ExpenseID</th><th>Amount</th><th>Category</th><th>DateOfExpense</th><th>Description</th></tr>';
+        table += '<tr><th>Amount</th><th>Category</th><th>DateOfExpense</th><th>Description</th></tr>';
 
         for (var i = 0; i < data.length; i++) {
             table += '<tr>';
-            table += '<td>' + data[i].ExpenseID + '</td>';
+           /*  table += '<td>' + data[i].ExpenseID + '</td>'; */
             table += '<td>' + data[i].Amount + '</td>';
             table += '<td>' + data[i].Category + '</td>';
             table += '<td>' + data[i].DateOfExpense + '</td>';

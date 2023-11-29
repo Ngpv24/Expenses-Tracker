@@ -24,7 +24,6 @@ $(document).ready(function() {
             $('#income').text(data.totalIncome);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            // Handle errors
             console.error('AJAX error: ' + textStatus + ' : ' + errorThrown);
         }
     });

@@ -1,16 +1,28 @@
 $(document).ready(function() {
 
-    displayTypeOfIncome();
+    displayIncomeTable();
 
     $('#update_income_opt').on('click', function() {
-        $('#addTransaction, #show_tables, #updateProduct, #removeProduct, #AddTypeOfIncome, #box_calculations').hide();
+        $('#addExpenses, #show_tables, #updateExpenses, #removeProduct, #AddTypeOfIncome, #box_calculations').hide();
         $('#updateIncome').show();
         showEditableIncomeTable();
     
-      });
+    });
+
+    /*Display Add Income Form */
+    $('#income_add_tab').on('click', function() {
+        $('#addExpenses, #updateExpenses, #updateIncome, #show_tables, #removeProduct, #box_calculations, #app_title').hide();
+        $('#AddTypeOfIncome').show();
+    });
+
+    //Insert income when clicking
+    $('#insert_income').on('click', function(event) {   
+        event.preventDefault();
+        addIncome();
+    });
 
     //Display product table - home
-    function displayTypeOfIncome(){ 
+    function displayIncomeTable(){ 
         $.ajax({
             url: 'display_table.php', 
             type: 'GET',
@@ -35,45 +47,84 @@ $(document).ready(function() {
 
     }//End display product
 
+
+    //add income
+    function addIncome() {
+
+        var amount = $("#income_amount").val();
+        var source = $("#income_source").val();
+        var date = $('#date_of_income').val();
+        var description = $("#income_desc").val();
+        var type = 'income'
+    
+        $.ajax({
+            url: 'add_record.php', 
+            type: 'POST',
+            data: {
+                amount:amount,
+                source:source,
+                date:date,
+                description:description,
+                type: type
+            },
+            success: function (response) {
+                if(response == "0") { 
+                    alert("Inserted successfully.")
+                    $("#income_amount").val('');
+                    $("#income_source").val('');
+                    $("#date_of_income").val('');
+                    $("#income_desc").val('');
+                    location.reload();
+                }
+                else { 
+                    alert("There was an error.")
+                }      
+            }  
+        });
+     }
+    
+
+    //prepare update table
     function showEditableIncomeTable() {
         $.ajax({
             url: 'display_table.php',
             type: 'GET',
             data: {
-                table:'expenses'
+                table:'income'
             },
             dataType: 'json',
             success: function (data) {
                 if (data.length > 0) {
                     var table = incomeTableData(data, 'Update');
     
-                    $('#updateProduct').html(table);
+                    $('#updateIncome').html(table);
     
-                    $('#update').on('submit', function(event){ 
+                    $('#update_income').on('submit', function(event){ 
                         event.preventDefault();
                         var formData =  $(this).serialize();
                         updateIncome(formData);
                     })
     
                 } else {
-                    $('#updateProduct').html('No data found.');
+                    $('#updateIncome').html('No data found.');
                 }
             },
             error: function (xhr, status, error) {
-                $('#updateProduct').html('Error: ' + error);
+                $('#updateIncome').html('Error: ' + error);
             }
         });
     }
     
     //update quantity
     function updateIncome(formData){ 
+       
         $.ajax({
-            url: 'update_quantity.php',
+            url: 'update_income.php',
             type:'POST',
             data: formData,
             success: function(response) { 
                 if(response == "0") {
-                    alert("Quantity updated successfully.");
+                    alert("Record(s) updated sucessfully.");
                     location.reload();
                 }
                 else { 
@@ -87,11 +138,11 @@ $(document).ready(function() {
    
         if(type == "Display") { 
            var table = '<table class="table-styled my-4">';
-           table += '<tr><th>IncomeID</th><th>Amount</th><th>Source</th><th>DateOfIncome</th><th>Description</th></tr>'; 
+           table += '<tr><th>Amount</th><th>Source</th><th>DateOfIncome</th><th>Description</th></tr>'; 
 
            for (var i = 0; i < data.length; i++) {
                table += '<tr>';
-               table += '<td>' + data[i].IncomeID + '</td>';
+              /*  table += '<td>' + data[i].IncomeID + '</td>'; */
                table += '<td>' + data[i].Amount + '</td>';
                table += '<td>' + data[i].Source + '</td>';
                table += '<td>' + data[i].DateOfIncome + '</td>';
@@ -103,23 +154,25 @@ $(document).ready(function() {
           
         }
          else if (type == "Update") {
-           var table = '<form id="update"><table class="table-styled my-4">';
-           table += '<tr><th>IncomeID</th><th>UserID</th><th>Amount</th><th>Source</th><th>DateOfIncome</th><th>Description</th></tr>';
+           var table = '<form id="update_income"><table class="table-styled my-4">';
+           table += '<tr><th>Amount</th><th>Source</th><th>DateOfIncome</th><th>Description</th></tr>';
    
            for (var i = 0; i < data.length; i++) {
                table += '<tr>';
-               table += '<td>' + data[i].IncomeID + '</td>';
-               table += '<td>' + data[i].UserID + '</td>';
-               table += '<td>' + data[i].Amount + '</td>';
-               table += '<td>' + data[i].Source + '</td>';
-               table += '<td>' + data[i].DateOfIncome + '</td>';
-               table += '<td>' + data[i].Description + '</td>';
+               table += '<input type="hidden" name="IncomeID' + i + '" value="' + data[i].IncomeID + '">';
+               table += '<td><input type="number" name="Amount' + i + '" value="' + data[i].Amount + '"></td>';
+               table += '<td><input type="text" name="Source' + i + '" value="' + data[i].Source + '"></td>';
+               table += '<td><input type="date" name="DateOfIncome' + i + '" value="' + data[i].DateOfIncome + '"></td>';
+               table += '<td><input type="text" name="Description' + i + '" value="' + data[i].Description + '"></td>';
+    
+              /*  table += '<td>' + data[i].UserID + '</td>'; */
+          
                table += '</tr>';
    
            }
         
            table += '</table>';
-           table += '<button type="submit" name="update_product" id="update_product"> Update transaction </button>';
+           table += '<button type="submit" name="update_income" id="update_income"> Update Income </button>';
            table += '</form>';
    
        }

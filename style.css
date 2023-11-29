@@ -45,3 +45,10 @@
   background-color: #f8f9fa; /* Change to the hover color of your other buttons */
   color: black; /* Change text color on hover if needed */
 }
+
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px; /* Adjust minimum height as needed */
+}
