@@ -15,6 +15,8 @@ $(document).ready(function() {
         $('#AddTypeOfIncome').show();
     });
 
+    //ADD THE DELETE PART
+
     //Insert income when clicking
     $('#insert_income').on('click', function(event) {   
         event.preventDefault();

@@ -13,7 +13,7 @@ $(document).ready(function() {
  /*Display Product Table*/
  $('#home_tab').on('click', function() {
     $('#addExpenses , #updateExpenses, #updateIncome, #removeProduct, #AddTypeOfIncome').hide();
-    $('#show_tables, #box_calculations').show();
+    $('#show_tables, #box_calculations, #app_title').show();
  });
 
 
