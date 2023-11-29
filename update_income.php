@@ -16,7 +16,7 @@
             $stmt = $pdo->prepare("UPDATE income SET $fieldName = :value WHERE IncomeID = :incomeId");
 
             $stmt->bindParam(':value', $value);
-            $stmt->bindParam(':incomeId', $_POST['IncomeID'.$rowIndex], PDO::PARAM_INT);
+            $stmt->bindParam(':incomeId', $_POST['IncomeID'.$rowIndex], PDO::PARAM_INT); #income id is being passed as a hidden field
             $stmt->execute();
             
             if ($stmt->rowCount() > 0) {    

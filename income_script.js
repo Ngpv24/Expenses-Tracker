@@ -3,7 +3,7 @@ $(document).ready(function() {
     displayIncomeTable();
 
     $('#update_income_opt').on('click', function() {
-        $('#addExpenses, #show_tables, #updateExpenses, #removeProduct, #AddTypeOfIncome, #box_calculations').hide();
+        $('#addExpenses, #show_tables, #updateExpenses, #removeExpenses, #AddTypeOfIncome, #box_calculations').hide();
         $('#updateIncome').show();
         showEditableIncomeTable();
     
@@ -11,11 +11,16 @@ $(document).ready(function() {
 
     /*Display Add Income Form */
     $('#income_add_tab').on('click', function() {
-        $('#addExpenses, #updateExpenses, #updateIncome, #show_tables, #removeProduct, #box_calculations, #app_title').hide();
+        $('#addExpenses, #updateExpenses, #updateIncome, #show_tables, #removeExpenses, #box_calculations, #app_title').hide();
         $('#AddTypeOfIncome').show();
     });
 
     //ADD THE DELETE PART
+    $('#dlt_income_opt').on('click', function() {
+        $('#addExpenses, #show_tables, #updateExpenses, #updateIncome, #AddTypeOfIncome, #box_calculations, #app_title, #removeExpenses').hide();
+        $('#removeIncome').show();
+        showCheckboxDelIncome();
+      });
 
     //Insert income when clicking
     $('#insert_income').on('click', function(event) {   
@@ -136,6 +141,57 @@ $(document).ready(function() {
         })   
     }
 
+    //Show table with checkbox to delete records
+    function showCheckboxDelIncome(){ 
+        $.ajax({
+            url: 'display_table.php',
+            type: 'GET',
+            data: {
+                table:'income'
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.length > 0) {
+                    var table = incomeTableData(data, 'Remove');
+
+                    $('#removeIncome').html(table);
+
+                    $('#remove_income').on('submit', function(event){ 
+                        event.preventDefault();
+                        var formData =  $(this).serialize();
+                    
+                        removeIncome(formData);
+                    })
+
+                } else {
+                    $('#removeIncome').html('No data found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                $('#removeIncome').html('Error: ' + error);
+            }
+        })   
+    }
+
+    //Remove expenses 
+    function removeIncome(formData) {
+
+        $.ajax({
+            url: 'remove_record.php',
+            type:'POST',
+            data: formData,
+            success: function(response) { 
+                if(response == "0") {
+                    alert("Product(s) removed successfully");
+                    location.reload();
+                }
+                else { 
+                    alert(response);
+                }
+            }
+        })  
+    }
+
     function incomeTableData(data, type) {
    
         if(type == "Display") { 
@@ -180,21 +236,22 @@ $(document).ready(function() {
        }
    
        else if (type == "Remove") {
-           var table = '<form id="remove"><table class="table-styled my-4">';
-           table += '<tr><th>IncomeID</th><th>UserID</th><th>Amount</th><th>Source</th><th>DateOfIncome</th><th>Description</th></tr>';   
+           var table = '<form id="remove_income"><table class="table-styled my-4">';
+           table += '<tr><th>Amount</th><th>Source</th><th>DateOfIncome</th><th>Description</th><th>Delete</th></tr>';   
            for (var i = 0; i < data.length; i++) {
                table += '<tr>';
-               table += '<td>' + data[i].IncomeID + '</td>';
-               table += '<td>' + data[i].UserID + '</td>';
+             /*   table += '<td>' + data[i].IncomeID + '</td>';
+               table += '<td>' + data[i].UserID + '</td>'; */
                table += '<td>' + data[i].Amount + '</td>';
                table += '<td>' + data[i].Source + '</td>';
                table += '<td>' + data[i].DateOfIncome + '</td>';
-               table += '<td>' + data[i].Description + '</td>';
-               
+               table += '<td>' + data[i].Description + '</td>'; 
+               table += '<td> <input type="checkbox" name="' + data[i].IncomeID + '"value="Y"></td>'
                table += '</tr>';
    
            }
-        
+
+           table += '<input type="hidden" name="type" value="income">';
            table += '</table>';
            table += '<button type="submit" name="delete_product" id="delete_product"> Delete record </button>';
            table += '</form>';
