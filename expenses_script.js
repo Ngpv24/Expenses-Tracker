@@ -12,7 +12,7 @@ $(document).ready(function() {
 
  /*Display Product Table*/
  $('#home_tab').on('click', function() {
-    $('#addExpenses , #updateExpenses, #updateIncome, #removeExpenses, #AddTypeOfIncome').hide();
+    $('#addExpenses , #updateExpenses, #updateIncome, #removeExpenses, #removeIncome, #AddTypeOfIncome').hide();
     $('#show_tables, #box_calculations, #app_title').show();
  });
 

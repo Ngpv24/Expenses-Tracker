@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="expenses_script.js"></script>
     <script src="income_script.js"></script>
+    <script src="financial_data.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body style="background-color: rgb(219, 218, 213); display: flex; flex-direction: column; min-height: 100vh;">
@@ -75,22 +76,22 @@
     </div>
 
     <!--Show Up Total Income/Expenses/Remaining Money-->
-    <div id="box_calculations">
+    <div id="box_calculations" style="font-size: 20px;">
         <div class="d-flex justify-content-center align-items-center flex-wrap my-3">
             <div class="card mx-2" style="width: 18rem;">
-                <div class="card-body">
+                <div class="card-body text-center" >
                     <h5 class="card-title">Total Income</h5>
-                    <p class="card-text" id="total_income">...</p>
+                    <p class="card-text income-text" id="total_income">...</p>
                 </div>
             </div>
             <div class="card mx-2" style="width: 18rem;">
-                <div class="card-body">
+                <div class="card-body text-center" >
                     <h5 class="card-title">Total Expenses</h5>
-                    <p class="card-text" id="total_expenses">...</p>
+                    <p class="card-text expenses-text" id="total_expenses">...</p>
                 </div>
             </div>
             <div class="card mx-2" style="width: 18rem;">
-                <div class="card-body">
+                <div class="card-body text-center" >
                     <h5 class="card-title">Remaining Money</h5>
                     <p class="card-text" id="remaining_money">...</p>
                 </div>
@@ -104,14 +105,13 @@
         <div id="show_tables">
             <div   class="d-flex justify-content-center align-items-center flex-wrap my-5">
                 <div class="table-container text-center mx-5">
-                    <h3>Expenses table</h3>
-                    <div id="expenses_table"></div>
-                </div>
-            
-                <div class="table-container text-center mx-5">
                     <h3>Income table</h3>
                     <div id="income_table"></div>
                 </div>
+                <div class="table-container text-center mx-5">
+                    <h3>Expenses table</h3>
+                    <div id="expenses_table"></div>
+                </div>       
             </div>
 
         </div>
@@ -165,7 +165,7 @@
 
     <!--Show Update-->
     <div class="d-flex justify-content-center align-items-center"> 
-<!--         <label>Update Expenses</label> -->
+        <label>Update Expenses</label>
         <div id="updateExpenses"></div>
     </div>
 

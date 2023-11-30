@@ -32,23 +32,31 @@
 }
 
 .custom-dropdown-button {
-  background-color: transparent; /* Match the background color of other buttons */
-  border: none; /* Remove border if your buttons don't have one */
-  color: black; /* Match the text color */
-  text-align: left; /* Align text like in other dropdown items */
-  width: 100%; /* Make the button stretch the full width of the dropdown */
-  padding: .25rem 1.5rem; /* Adjust padding to match other items, if needed */
-  font-size: 1rem; /* Match font size with other buttons */
+  background-color: transparent; 
+  border: none; 
+  color: black;
+  text-align: left;
+  width: 100%;
+  padding: .25rem 1.5rem; 
+  font-size: 1rem; 
 }
 
 .custom-dropdown-button:hover {
-  background-color: #f8f9fa; /* Change to the hover color of your other buttons */
-  color: black; /* Change text color on hover if needed */
+  background-color: #f8f9fa;
+  color: black; 
 }
 
 
 .table-container {
   display: flex;
   flex-direction: column;
-  min-height: 300px; /* Adjust minimum height as needed */
+  min-height: 300px; 
+}
+
+.income-text {
+  color: green;
+}
+
+.expenses-text {
+  color: red;
 }
