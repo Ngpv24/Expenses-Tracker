@@ -2,6 +2,11 @@ $(document).ready(function() {
  
     checkCookieAndRedirect();
 
+    $('#sign_out').on('click', function() {
+      cleanCookies();
+      window.location.href = 'login.html';
+    });
+
     /*Redirect to login if cookies end */
    function checkCookieAndRedirect() {
        var cookie = getCookie("cookie_id"); 
@@ -26,5 +31,12 @@ $(document).ready(function() {
        }
        return "";
    }//End function
-   
-   });
+
+   function cleanCookies(){
+    var pastDate = new Date(0).toUTCString();
+    document.cookie = "cookie_id=''; expires=" + pastDate + "; path=/";
+    document.cookie = "cookie_user=''; expires=" + pastDate + "; path=/"; 
+    alert('Sign out sucessfully');
+   }
+
+  });
