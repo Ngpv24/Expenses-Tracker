@@ -1,17 +1,20 @@
 -- Create a new database called cps3351
-
+CREATE DATABASE IF NOT EXISTS cps3351;
 -- Create table users
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     Username VARCHAR(50) NOT NULL,
     Password VARCHAR(255) NOT NULL,
-    Email VARCHAR(100),
 	FirstName VARCHAR(50),
     LastName  VARCHAR(50),
     Gender CHAR(1)
 );
+
 INSERT INTO Users (Username, Password, Email, FirstName, LastName, Gender)
-VALUES ('ngpv', '123', 'jou@gmail.com', 'Joussef', 'Ibarra', 'M');
+VALUES ('ngpv', '123', 'jou@gmail.com', 'Joussef', 'Ib', 'M');
+
+INSERT INTO Users (Username, Password, Email, FirstName, LastName, Gender)
+VALUES ('dom', '123', 'dom@gmail.com', 'Dom', 'd', 'M');
 
 -- Inserting a new user
 INSERT INTO Users (Username, Password, Email, FirstName, LastName, Gender)
@@ -58,8 +61,6 @@ VALUES (4, 120.00, 'Rent', '2023-11-03', 'Monthly rent payment');
 INSERT INTO Expenses (UserID, Amount, Category, DateOfExpense)
 VALUES (4, 20.00, 'Transport', '2023-11-02');
 
-select * from income where UserID = 4;
-
 CREATE TABLE Income (
     IncomeID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT,
@@ -89,47 +90,4 @@ VALUES (3, 300.00, 'Scholarship', '2023-11-15', 'Academic Scholarship for Novemb
 -- Inserting income for a user with UserID = 4
 INSERT INTO Income (UserID, Amount, Source, DateOfIncome, Description)
 VALUES (4, 300.00, 'Scholarship', '2023-11-15', 'Academic Scholarship for November');
-
-
-CREATE TABLE Source (
-	SourceID INT AUTO_INCREMENT PRIMARY KEY,
-	SourceName VARCHAR(100) NOT NULL
-);
-
-
-CREATE TABLE Category(
-	CategoryID INT AUTO_INCREMENT PRIMARY KEY,
-    CategoryName VARCHAR(100) NOT NULL
-);
-
--- Insert records into Source table
-INSERT INTO Source (SourceName) VALUES ('Salary');
-INSERT INTO Source (SourceName) VALUES ('Business or Self-Employment');
-INSERT INTO Source (SourceName) VALUES ('Investment Returns');
-INSERT INTO Source (SourceName) VALUES ('Rental Income');
-INSERT INTO Source (SourceName) VALUES ('Freelancing or Consulting');
-INSERT INTO Source (SourceName) VALUES ('Scholarship');
-
--- Insert records into Category table
-INSERT INTO Category (CategoryName) VALUES ('Groceries');
-INSERT INTO Category (CategoryName) VALUES ('Rent or Mortgage');
-INSERT INTO Category (CategoryName) VALUES ('Utilities');
-INSERT INTO Category (CategoryName) VALUES ('Transportation');
-INSERT INTO Category (CategoryName) VALUES ('Entertainment');
-INSERT INTO Category (CategoryName) VALUES ('Dining Out');
-INSERT INTO Category (CategoryName) VALUES ('Health Care');
-INSERT INTO Category (CategoryName) VALUES ('Insurance');
-
-ALTER TABLE Income
-ADD COLUMN SourceID INT,
-ADD FOREIGN KEY (SourceID) REFERENCES Source(SourceID);
-
-ALTER TABLE Expenses
-ADD COLUMN CategoryID INT,
-ADD FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID);
-
-
--- note delete Source column and Category column
-
-
 
