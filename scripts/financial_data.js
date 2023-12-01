@@ -10,7 +10,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 $('#total_income').html('$' + parseFloat(data.totalIncome).toFixed(2));
-                $('#total_expenses').html('$' + parseFloat(data.totalExpenses).toFixed(2));
+                $('#total_expenses').html('-$' + parseFloat(data.totalExpenses).toFixed(2));
                 $('#remaining_money').html('$' + parseFloat(data.remainingMoney).toFixed(2));
             },
             error: function(xhr, status, error) {

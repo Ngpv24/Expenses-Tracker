@@ -214,7 +214,7 @@ function expensesTableData(data, type) {
         for (var i = 0; i < data.length; i++) {
             table += '<tr>';
            /*  table += '<td>' + data[i].ExpenseID + '</td>'; */
-            table += '<td>' + data[i].Amount + '</td>';
+            table += '<td style="color: red;">$' + data[i].Amount + '</td>';
             table += '<td>' + data[i].Category + '</td>';
             table += '<td>' + data[i].DateOfExpense + '</td>';
             table += '<td>' + data[i].Description + '</td>';

@@ -201,7 +201,7 @@ $(document).ready(function() {
            for (var i = 0; i < data.length; i++) {
                table += '<tr>';
               /*  table += '<td>' + data[i].IncomeID + '</td>'; */
-               table += '<td>' + data[i].Amount + '</td>';
+               table += '<td style="color: green;">$' + data[i].Amount + '</td>';
                table += '<td>' + data[i].Source + '</td>';
                table += '<td>' + data[i].DateOfIncome + '</td>';
                table += '<td>' + data[i].Description + '</td>';
