@@ -2,12 +2,11 @@
 
     require 'database.php';
 
-    $response = array();
-    $user_id = $_COOKIE['customer_id'];
+    $user_id = $_COOKIE['cookie_id'];
 
     $query = "
     SELECT 
-        Username, Email, FirstName, LastName, Gender
+        Username, FirstName, LastName, Gender
         FROM Users WHERE UserID = :user_id
  
     ";

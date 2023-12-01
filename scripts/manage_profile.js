@@ -18,8 +18,8 @@ $(document).ready(function() {
         success: function(data) {
             console.log(data); 
             $('#username').text(data.Username); 
-            $('#email').text(data.Email);
-            $('#name').text(data.FirstName + " " + data.LastName)     
+            $('#first_name').text(data.FirstName);
+            $('#last_name').text(data.LastName); 
             $('#gender').text(data.Gender);     
             $('#income').text(data.totalIncome);
         },

@@ -19,7 +19,7 @@
     margin: 0;
   }
   
-#loginForm {
+  #loginForm {
     background-color: #fff;
     position: relative;
     padding: 70px;
@@ -27,6 +27,16 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   
   }
+
+  #registerForm {
+    background-color: #fff;
+    position: relative;
+    padding: 70px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  
+  }
+
   button#submit {
     background-color: black;
     color: white;
@@ -36,7 +46,7 @@
     cursor: pointer;
     width: 100%;
   }
-  input[type=text], input[type=password] {
+  input[type=text], input[type=password], select{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0; 
