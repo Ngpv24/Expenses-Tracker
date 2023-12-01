@@ -41,6 +41,6 @@
     if ($success) {
         echo "0";
     } else {
-        echo "Error updating records.";
+        echo "No new data entered";
     }
 ?>

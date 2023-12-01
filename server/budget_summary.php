@@ -2,7 +2,7 @@
 
     include("database.php");
 
-    $user_id = $_COOKIE['customer_id'];
+    $user_id = $_COOKIE['cookie_id'];
 
     $query = "
     SELECT 

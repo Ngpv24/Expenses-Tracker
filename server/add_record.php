@@ -1,12 +1,38 @@
 <?php
     require 'database.php';
 
-    $user_id = $_COOKIE['customer_id'];
+    $user_id = $_COOKIE['cookie_id'];
     $amount = $_POST['amount'];
     $categoryOrSource = $_POST['type'] === 'income' ? ($_POST['source']) : ($_POST['category']);
     $date = $_POST['date'];
     $description = $_POST['description'];
     $type = $_POST['type']; 
+
+    if($_POST['type'] === 'income') {
+        $msg = 'Source';
+    }
+    else {
+        $msg ='Category';
+    }
+
+    if ($amount === "") {
+        echo "Please enter an amount.";
+        exit;
+    }
+    else if(empty($categoryOrSource)) {
+        echo "Please enter $msg";
+        exit;
+    }
+    else if( empty($date)){
+        echo "Please enter a date";
+        exit;
+    }
+
+
+    if (!is_numeric($amount) || (float)$amount <= 0) {
+        echo "Amount cannot be zero, negative, or a letter";
+        exit;
+    }
 
     try {
         if ($type === 'income') {
@@ -25,7 +51,7 @@
 
         $stmt->execute();
 
-        echo $stmt->rowCount() > 0 ? "0" : "1";
+        echo $stmt->rowCount() > 0 ? "0" : "Error inserting record.";
         
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();

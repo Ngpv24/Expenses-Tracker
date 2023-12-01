@@ -76,7 +76,7 @@ $(document).ready(function() {
             },
             success: function (response) {
                 if(response == "0") { 
-                    alert("Inserted successfully.")
+                    alert("Income Inserted successfully.")
                     $("#income_amount").val('');
                     $("#income_source").val('');
                     $("#date_of_income").val('');
@@ -84,7 +84,7 @@ $(document).ready(function() {
                     location.reload();
                 }
                 else { 
-                    alert("There was an error.")
+                    alert(response)
                 }      
             }  
         });
@@ -135,7 +135,7 @@ $(document).ready(function() {
                     location.reload();
                 }
                 else { 
-                    alert("There was an error updating.");
+                    alert(response);
                 }
             }
         })   
@@ -219,7 +219,7 @@ $(document).ready(function() {
            for (var i = 0; i < data.length; i++) {
                table += '<tr>';
                table += '<input type="hidden" name="IncomeID[]" value="' + data[i].IncomeID + '">';
-               table += '<td><input type="number" name="Amount[]" value="' + data[i].Amount + '"></td>';
+               table += '<td><input type="number" name="Amount[]" value="' + data[i].Amount + '" step="0.01"></td>';
                table += '<td><input type="text" name="Source[]" value="' + data[i].Source + '"></td>';
                table += '<td><input type="date" name="DateOfIncome[]" value="' + data[i].DateOfIncome + '"></td>';
                table += '<td><input type="text" name="Description[]" value="' + data[i].Description + '"></td>';

@@ -12,7 +12,7 @@
 
         if ($user) {
             if ($user['Password'] == $password) {
-                $cookie_id   = "customer_id";
+                $cookie_id   = "cookie_id";
                 $cookie_user = "cookie_user";
                 #add "/" so cookie is available on the entire domain
                 setcookie($cookie_id, $user['UserID'], time() + 3600, "/"); 

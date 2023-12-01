@@ -4,10 +4,8 @@ $(document).ready(function() {
  total_expenses = 0;
  remaining_balance = 0;
 
- 
  displayExpensesTable();
- checkCookieAndRedirect();
-
+ 
  /*Display Product Table*/
  $('#home_tab').on('click', function() {
     $('#addExpenses , #updateExpensesContainer, #updateIncomeContainer, #removeExpensesContainer, #removeIncomeContainer, #AddTypeOfIncome').hide();
@@ -91,7 +89,7 @@ $(document).ready(function() {
         },
         success: function (response) {
             if(response == "0") { 
-                alert("Inserted successfully.")
+                alert("Expenses inserted sucessfully")
                 $("#expenses_amount").val('');
                 $("#expenses_cat").val('');
                 $("#date_of_expenses").val('');
@@ -99,7 +97,7 @@ $(document).ready(function() {
                 location.reload();
             }
             else { 
-                alert("There was an error.")
+                alert(response)
             }      
         }  
     });
@@ -149,7 +147,7 @@ function updateExpenses(formData){
                 location.reload();
             }
             else { 
-                alert("There was an error updating.");
+                alert(response);
             }
         }
     })   
@@ -273,31 +271,6 @@ function expensesTableData(data, type) {
 
     return table;  
 }
-
-/*Redirect to login if cookies end */
-function checkCookieAndRedirect() {
-    var cookie = getCookie("customer_id"); 
-    if (cookie === null || cookie === "") {
-        window.location.href = 'login.html'; 
-    }
-}
-
-/*Function to get cookie - source: w3schools*/
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-}//End function
 
 
 });

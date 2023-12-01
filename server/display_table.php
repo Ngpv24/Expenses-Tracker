@@ -1,7 +1,7 @@
 <?php
     require 'database.php';
 
-    $user_id = $_COOKIE['customer_id'];
+    $user_id = $_COOKIE['cookie_id'];
     $table = $_GET['table'];
 
     if($table == 'expenses') {
