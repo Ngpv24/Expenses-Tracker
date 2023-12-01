@@ -16,7 +16,7 @@ $(document).ready(function() {
         }
         $.ajax({
             type: 'POST',
-            url: 'login.php', 
+            url: 'server/login.php', 
             data: { 
                 username: username, 
                 password: password 

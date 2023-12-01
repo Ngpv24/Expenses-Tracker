@@ -7,10 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Personal Badget Tracker</title>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="expenses_script.js"></script>
-    <script src="income_script.js"></script>
-    <script src="financial_data.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="scripts/expenses_script.js"></script>
+    <script src="scripts/income_script.js"></script>
+    <script src="scripts/financial_data.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body style="background-color: rgb(219, 218, 213); display: flex; flex-direction: column; min-height: 100vh;">
 
@@ -33,22 +33,24 @@
                         <li class="nav-item">
                             <button class="nav-link" id="home_tab" style="color:black">Overview</button>
                         </li>
-                        <li class="nav-item">
-                            <button class="nav-link" id="expenses_add_tab" style="color:black">Add Expenses</button>
-                        </li>
+
                         <li class="nav-item">     
                             <button class="nav-link" id="income_add_tab" style="color:black">Add Income</button>
                         </li>
 
+                        <li class="nav-item">
+                            <button class="nav-link" id="expenses_add_tab" style="color:black">Add Expenses</button>
+                        </li>
+                     
                         <!-- Update drowpdown -->
                         <li class="nav-item dropdown">
                             <button class="nav-link dropdown-toggle" id="updateDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black">
                                 Update Records
                             </button>
                             <div class="dropdown-menu" aria-labelledby="updateDropdown">
-                                <button class="dropdown-item custom-dropdown-button" id="update_expenses_opt" style="color:black">Update Expenses</button>
+                                <button class="dropdown-item custom-dropdown-button" id="update_income_opt" style="color:black">Update Income</button>                  
                                 <div class="dropdown-divider"></div>
-                                <button class="dropdown-item custom-dropdown-button" id="update_income_opt" style="color:black">Update Income</button>
+                                <button class="dropdown-item custom-dropdown-button" id="update_expenses_opt" style="color:black">Update Expenses</button>
                             </div>
                         </li>
 
@@ -58,13 +60,11 @@
                                 Remove Records
                             </button>
                             <div class="dropdown-menu" aria-labelledby="updateDropdown">
-                                <button class="dropdown-item custom-dropdown-button" id="dlt_expenses_opt" style="color:black">Remove Expenses</button>
+                                <button class="dropdown-item custom-dropdown-button" id="dlt_income_opt" style="color:black">Remove Income</button>           
                                 <div class="dropdown-divider"></div>
-                                <button class="dropdown-item custom-dropdown-button" id="dlt_income_opt" style="color:black">Remove Income</button>
-  
+                                <button class="dropdown-item custom-dropdown-button" id="dlt_expenses_opt" style="color:black">Remove Expenses</button>
                             </div>
                         </li>
-
                     </ul>
                 </div>
             </div>
@@ -119,7 +119,7 @@
    
 
     <!--Show Add Transaction Form-->
-    <div id="addExpenses">
+    <div id="addExpenses"  style="display: none;">
         <div class="add-container" style="display:flex; flex-direction: column; align-items:center; margin:20px;">  
             <h3>Enter Expenses Data</h3>  
             <form>     
@@ -141,7 +141,7 @@
     </div>
 
     <!--Show Add Income Form-->
-    <div id="AddTypeOfIncome">
+    <div id="AddTypeOfIncome" style="display: none;">
         <div class="add-container" style="display:flex; flex-direction: column; align-items:center; margin:20px">
             <h3>Enter Income Data</h3>
             <form>
@@ -163,26 +163,38 @@
         </div>
     </div>
 
-    <!--Show Update-->
-    <div class="d-flex justify-content-center align-items-center"> 
-        <label>Update Expenses</label>
-        <div id="updateExpenses"></div>
+    <!-- Update Expenses Section -->
+    <div id="updateExpensesContainer" class="my-3" style="display: none;">
+        <div class="text-center"> 
+            <h3>Update Expenses</h3>
+        </div>
+        <div id="updateExpenses" class="d-flex justify-content-center align-items-center"></div>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center"> 
-      <!--   <label>Update Income</label> -->
-        <div id="updateIncome"></div>
+    <!-- Update Income Section -->
+    <div id="updateIncomeContainer" class="my-3" style="display: none;">
+        <div class="text-center"> 
+            <h3>Update Income</h3>
+        </div>
+        <div id="updateIncome" class="d-flex justify-content-center align-items-center"></div>
     </div>
 
-    <!--Show Remove add remove for expenses and modify existing using expense-->
-    <div class="d-flex justify-content-center align-items-center"> 
-        <div id="removeExpenses"></div>
+    <!-- Remove Expenses Section -->
+    <div id="removeExpensesContainer" class="my-3" style="display: none;">
+        <div class="text-center"> 
+            <h3>Remove Expenses</h3>
+        </div>
+        <div id="removeExpenses" class="d-flex justify-content-center align-items-center"></div>
     </div>
 
-    <!--Show Remove add remove for income too and modify existing using expense-->
-    <div class="d-flex justify-content-center align-items-center"> 
-        <div id="removeIncome"></div>
+    <!-- Remove Income Section -->
+    <div id="removeIncomeContainer" class="my-3" style="display: none;">
+        <div class="text-center"> 
+            <h3>Remove Income</h3>
+        </div>
+        <div id="removeIncome" class="d-flex justify-content-center align-items-center"></div>
     </div>
+
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 

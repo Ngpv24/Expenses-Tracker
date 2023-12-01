@@ -5,7 +5,7 @@ $(document).ready(function() {
     // Function to display financial summary
     function displayFinancialSummary() {
         $.ajax({
-            url: 'budget_summary.php', // The PHP file that will return financial data
+            url: 'server/budget_summary.php', // The PHP file that will return financial data
             type: 'GET',
             dataType: 'json',
             success: function(data) {

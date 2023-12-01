@@ -7,12 +7,9 @@
 
     $query = "
     SELECT 
-        u.Username, u.Email, u.FirstName, u.LastName, u.Gender, 
-        IFNULL(SUM(i.amount), 0) AS totalIncome 
-    FROM Users u 
-    LEFT JOIN Income i ON u.UserID = i.UserID
-    WHERE u.UserID = :user_id
-    GROUP BY u.UserID
+        Username, Email, FirstName, LastName, Gender
+        FROM Users WHERE UserID = :user_id
+ 
     ";
 
     $user_info  = $pdo -> prepare($query);

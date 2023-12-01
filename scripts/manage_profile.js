@@ -12,7 +12,7 @@ $(document).ready(function() {
  */
  function displayUserInfo() {
     $.ajax({
-        url: 'user_information.php', 
+        url: 'server/user_information.php', 
         type: 'GET', 
         dataType: 'json', 
         success: function(data) {

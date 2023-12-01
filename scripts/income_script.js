@@ -3,22 +3,22 @@ $(document).ready(function() {
     displayIncomeTable();
 
     $('#update_income_opt').on('click', function() {
-        $('#addExpenses, #show_tables, #updateExpenses, #removeExpenses, #AddTypeOfIncome, #box_calculations').hide();
-        $('#updateIncome').show();
+        $('#addExpenses, #show_tables, #updateExpensesContainer, #removeIncomeContainer, #removeExpensesContainer, #AddTypeOfIncome, #box_calculations, #app_title').hide();
+        $('#updateIncomeContainer').show();
         showEditableIncomeTable();
     
     });
 
     /*Display Add Income Form */
     $('#income_add_tab').on('click', function() {
-        $('#addExpenses, #updateExpenses, #updateIncome, #show_tables, #removeExpenses, #box_calculations, #app_title').hide();
+        $('#addExpenses, #updateExpensesContainer, #updateIncomeContainer, #show_tables, #removeExpensesContainer, #removeIncomeContainer, #box_calculations, #app_title').hide();
         $('#AddTypeOfIncome').show();
     });
 
     //ADD THE DELETE PART
     $('#dlt_income_opt').on('click', function() {
-        $('#addExpenses, #show_tables, #updateExpenses, #updateIncome, #AddTypeOfIncome, #box_calculations, #app_title, #removeExpenses').hide();
-        $('#removeIncome').show();
+        $('#addExpenses, #show_tables, #updateExpensesContainer, #updateIncomeContainer, #AddTypeOfIncome, #box_calculations, #app_title, #removeExpensesContainer').hide();
+        $('#removeIncomeContainer').show();
         showCheckboxDelIncome();
       });
 
@@ -31,7 +31,7 @@ $(document).ready(function() {
     //Display product table - home
     function displayIncomeTable(){ 
         $.ajax({
-            url: 'display_table.php', 
+            url: 'server/display_table.php', 
             type: 'GET',
             data: {
                 table:'income'
@@ -65,7 +65,7 @@ $(document).ready(function() {
         var type = 'income'
     
         $.ajax({
-            url: 'add_record.php', 
+            url: 'server/add_record.php', 
             type: 'POST',
             data: {
                 amount:amount,
@@ -94,7 +94,7 @@ $(document).ready(function() {
     //prepare update table
     function showEditableIncomeTable() {
         $.ajax({
-            url: 'display_table.php',
+            url: 'server/display_table.php',
             type: 'GET',
             data: {
                 table:'income'
@@ -126,7 +126,7 @@ $(document).ready(function() {
     function updateIncome(formData){ 
        
         $.ajax({
-            url: 'update_income.php',
+            url: 'server/update_records.php',
             type:'POST',
             data: formData,
             success: function(response) { 
@@ -144,7 +144,7 @@ $(document).ready(function() {
     //Show table with checkbox to delete records
     function showCheckboxDelIncome(){ 
         $.ajax({
-            url: 'display_table.php',
+            url: 'server/display_table.php',
             type: 'GET',
             data: {
                 table:'income'
@@ -177,7 +177,7 @@ $(document).ready(function() {
     function removeIncome(formData) {
 
         $.ajax({
-            url: 'remove_record.php',
+            url: 'server/remove_record.php',
             type:'POST',
             data: formData,
             success: function(response) { 
@@ -213,15 +213,16 @@ $(document).ready(function() {
         }
          else if (type == "Update") {
            var table = '<form id="update_income"><table class="table-styled my-4">';
+           table += '<input type="hidden" name="type" value="income">';
            table += '<tr><th>Amount</th><th>Source</th><th>DateOfIncome</th><th>Description</th></tr>';
    
            for (var i = 0; i < data.length; i++) {
                table += '<tr>';
-               table += '<input type="hidden" name="IncomeID' + i + '" value="' + data[i].IncomeID + '">';
-               table += '<td><input type="number" name="Amount' + i + '" value="' + data[i].Amount + '"></td>';
-               table += '<td><input type="text" name="Source' + i + '" value="' + data[i].Source + '"></td>';
-               table += '<td><input type="date" name="DateOfIncome' + i + '" value="' + data[i].DateOfIncome + '"></td>';
-               table += '<td><input type="text" name="Description' + i + '" value="' + data[i].Description + '"></td>';
+               table += '<input type="hidden" name="IncomeID[]" value="' + data[i].IncomeID + '">';
+               table += '<td><input type="number" name="Amount[]" value="' + data[i].Amount + '"></td>';
+               table += '<td><input type="text" name="Source[]" value="' + data[i].Source + '"></td>';
+               table += '<td><input type="date" name="DateOfIncome[]" value="' + data[i].DateOfIncome + '"></td>';
+               table += '<td><input type="text" name="Description[]" value="' + data[i].Description + '"></td>';
     
               /*  table += '<td>' + data[i].UserID + '</td>'; */
           

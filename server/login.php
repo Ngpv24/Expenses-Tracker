@@ -14,14 +14,18 @@
             if ($user['Password'] == $password) {
                 $cookie_id   = "customer_id";
                 $cookie_user = "cookie_user";
-                setcookie($cookie_id,$user['UserID'], time() + 3600);
-                setcookie($cookie_user,$user['Username'], time() + 3600);
+                #add "/" so cookie is available on the entire domain
+                setcookie($cookie_id, $user['UserID'], time() + 3600, "/"); 
+                setcookie($cookie_user, $user['Username'], time() + 3600, "/");
+
                 echo "success";
             } else {
                 echo "Username exists, but password is incorrect.";
+                exit();
             }
         } else {
             echo "Username doesn't exist";
+            exit();
         }
     }
 

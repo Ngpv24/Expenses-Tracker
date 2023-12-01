@@ -4,15 +4,13 @@ $(document).ready(function() {
  total_expenses = 0;
  remaining_balance = 0;
 
- /*Initialize hide all the forms*/   
- $('#addExpenses, #updateExpenses, #AddTypeOfIncome').hide();
  
  displayExpensesTable();
  checkCookieAndRedirect();
 
  /*Display Product Table*/
  $('#home_tab').on('click', function() {
-    $('#addExpenses , #updateExpenses, #updateIncome, #removeExpenses, #removeIncome, #AddTypeOfIncome').hide();
+    $('#addExpenses , #updateExpensesContainer, #updateIncomeContainer, #removeExpensesContainer, #removeIncomeContainer, #AddTypeOfIncome').hide();
     $('#show_tables, #box_calculations, #app_title').show();
  });
 
@@ -20,22 +18,22 @@ $(document).ready(function() {
  /*Display Add Transaction Form*/
  $('#expenses_add_tab').on('click', function() {
     $('#addExpenses').show();
-    $('#updateExpenses, #updateIncome, #show_tables, #AddTypeOfIncome, #removeExpenses, #box_calculations, #app_title').hide();  
+    $('#updateExpensesContainer, #updateIncomeContainer, #show_tables, #AddTypeOfIncome, #removeExpensesContainer, #removeIncomeContainer, #box_calculations, #app_title').hide();  
   
 });
 
  //display update product
  $('#update_expenses_opt').on('click', function() {
-    $('#addExpenses, #show_tables, #updateIncome, #removeExpenses, #AddTypeOfIncome, #box_calculations, #app_title').hide();
-    $('#updateExpenses').show();
+    $('#addExpenses, #show_tables, #updateIncomeContainer, #removeExpensesContainer, #removeIncomeContainer, #AddTypeOfIncome, #box_calculations, #app_title').hide();
+    $('#updateExpensesContainer').show();
     showEditableExpenseTable();
 
   });
 
   //display remove product 
   $('#dlt_expenses_opt').on('click', function() {
-    $('#addExpenses, #show_tables, #updateExpenses, #updateIncome, #AddTypeOfIncome, #box_calculations, #app_title, #removeIncome').hide();
-    $('#removeExpenses').show();
+    $('#addExpenses, #show_tables, #updateExpensesContainer, #updateIncomeContainer, #AddTypeOfIncome, #box_calculations, #app_title, #removeIncomeContainer').hide();
+    $('#removeExpensesContainer').show();
     showCheckboxDelExpenses();
   });
 
@@ -49,7 +47,7 @@ $(document).ready(function() {
  //Display product table - home
  function displayExpensesTable(){ 
     $.ajax({
-        url: 'display_table.php', 
+        url: 'server/display_table.php', 
         type: 'GET',
         data: {
             table:'expenses'
@@ -82,7 +80,7 @@ $(document).ready(function() {
     var type = 'expenses'
 
     $.ajax({
-        url: 'add_record.php', 
+        url: 'server/add_record.php', 
         type: 'POST',
         data: {
             amount:amount,
@@ -110,7 +108,7 @@ $(document).ready(function() {
  //Show table with editable fields
  function showEditableExpenseTable() {
     $.ajax({
-        url: 'display_table.php',
+        url: 'server/display_table.php',
         type: 'GET',
         data: {
             table:'expenses'
@@ -142,7 +140,7 @@ $(document).ready(function() {
 function updateExpenses(formData){ 
 
     $.ajax({
-        url: 'update_expenses.php',
+        url: 'server/update_records.php',
         type:'POST',
         data: formData,
         success: function(response) { 
@@ -160,7 +158,7 @@ function updateExpenses(formData){
 //Show table with checkbox to delete records
 function showCheckboxDelExpenses(){ 
     $.ajax({
-        url: 'display_table.php',
+        url: 'server/display_table.php',
         type: 'GET',
         data: {
             table:'expenses'
@@ -193,7 +191,7 @@ function showCheckboxDelExpenses(){
 function removeExpenses(formData) {
 
     $.ajax({
-        url: 'remove_record.php',
+        url: 'server/remove_record.php',
         type:'POST',
         data: formData,
         success: function(response) { 
@@ -230,15 +228,16 @@ function expensesTableData(data, type) {
      }
      else if (type == "Update") {
         var table = '<form id="update_expenses"><table class="table-styled my-4">';
+        table += '<input type="hidden" name="type" value="expenses">';
         table += '<tr><th>Amount</th><th>Category</th><th>DateOfExpense</th><th>Description</th></tr>';
     
         for (var i = 0; i < data.length; i++) {
             table += '<tr>';
-            table += '<input type="hidden" name="ExpenseID' + i + '" value="' + data[i].ExpenseID + '">';
-            table += '<td><input type="number" name="Amount' + i + '" value="' + data[i].Amount + '"></td>';
-            table += '<td><input type="text" name="Category' + i + '" value="' + data[i].Category + '"></td>';
-            table += '<td><input type="date" name="DateOfExpense' + i + '" value="' + data[i].DateOfExpense + '"></td>';
-            table += '<td><input type="text" name="Description' + i + '" value="' + data[i].Description + '"></td>';
+            table += '<input type="hidden" name="ExpenseID[]" value="' + data[i].ExpenseID + '">';
+            table += '<td><input type="number" name="Amount[]" value="' + data[i].Amount + '"></td>';
+            table += '<td><input type="text" name="Category[]" value="' + data[i].Category + '"></td>';
+            table += '<td><input type="date" name="DateOfExpense[]" value="' + data[i].DateOfExpense + '"></td>';
+            table += '<td><input type="text" name="Description[]" value="' + data[i].Description + '"></td>';
             table += '</tr>';
         }
     
