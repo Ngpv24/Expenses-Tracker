@@ -33,6 +33,10 @@
         echo "Amount cannot be zero, negative, or a letter";
         exit;
     }
+    else if (!preg_match('/^\d+(\.\d+)?$/', $amount)) {
+        echo "Amount cannot be a letter";
+        exit;
+    }
 
     if(!preg_match('/^[A-Za-z0-9_]{20}$/',$description)) {
         echo "Only a max of 20 characters allowed.";

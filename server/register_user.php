@@ -22,10 +22,9 @@ require 'database.php';
     }
     #match one capital letter and a total of 5 characters including any character (e.g. @)
     else if (!preg_match('/^[A-Z][a-z0-9]{4,}$/',$password)){
-        echo "password should be longer than 5 characters and start with a Capital letter";
+        echo "password should be at least 5 characters long and start with a Capital letter";
         exit;
     }
-;
 
     $checkStmt = $pdo->prepare("SELECT * FROM Users WHERE username = ?");
     $checkStmt -> bindParam(1, $username, PDO::PARAM_STR);

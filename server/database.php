@@ -2,13 +2,13 @@
 
 $dbhostname = 'localhost';
 $dbname     = 'cps3351';
-/* $port = 3307; */
+$port = 3307;
 $dbusername = 'jou';
 $dbpassword = 'password'; 
 $chartset = 'utf8mb4';
 
-/* $attr = "mysql:host=$dbhostname; port=$port;dbname=$dbname"; */
-$attr = "mysql:host=$dbhostname; dbname=$dbname";
+$attr = "mysql:host=$dbhostname; port=$port;dbname=$dbname";
+/* $attr = "mysql:host=$dbhostname; dbname=$dbname"; */
 $opts = 
 [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
