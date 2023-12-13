@@ -1,9 +1,5 @@
 $(document).ready(function() {
 
- total_income = 0;
- total_expenses = 0;
- remaining_balance = 0;
-
  displayExpensesTable();
  
  /*Display Product Table*/

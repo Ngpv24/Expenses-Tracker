@@ -14,6 +14,17 @@ require 'database.php';
     $lname = $_POST['last_name'];
     $password = $_POST['password'];
     $gender = $_POST['gender'];
+
+    #match any letter for username
+    if(!preg_match('/^[A-Za-z0-9]{4,}$/', $username)) {
+        echo "username should be at least 4 characters";
+        exit;
+    }
+    #match one capital letter and a total of 5 characters including any character (e.g. @)
+    else if (!preg_match('/^[A-Z][a-z0-9]{4,}$/',$password)){
+        echo "password should be longer than 5 characters and start with a Capital letter";
+        exit;
+    }
 ;
 
     $checkStmt = $pdo->prepare("SELECT * FROM Users WHERE username = ?");

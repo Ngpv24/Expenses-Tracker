@@ -34,6 +34,11 @@
         exit;
     }
 
+    if(!preg_match('/^[A-Za-z0-9_]{20}$/',$description)) {
+        echo "Only a max of 20 characters allowed.";
+        exit;
+    }
+
     try {
         if ($type === 'income') {
             $query = 'INSERT INTO income (UserID, Amount, Source, DateOfIncome, Description) VALUES (?, ?, ?, ?, ?)';
