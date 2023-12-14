@@ -38,7 +38,7 @@
         exit;
     }
 
-    if(!preg_match('/^[A-Za-z0-9_]{20}$/',$description)) {
+    if(!preg_match('/^[A-Za-z0-9_]{0,20}$/',$description)) {
         echo "Only a max of 20 characters allowed.";
         exit;
     }

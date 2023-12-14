@@ -57,7 +57,7 @@ $(document).ready(function() {
               
             }
         },
-        error: function (xhr, status, error) {
+        error: function (error) {
             $('#product_table').html('Error: ' + error);
         }
     });
@@ -124,7 +124,7 @@ $(document).ready(function() {
                 $('#updateExpenses').html('No data found.');
             }
         },
-        error: function (xhr, status, error) {
+        error: function (error) {
             $('#updateExpenses').html('Error: ' + error);
         }
     });
@@ -175,7 +175,7 @@ function showCheckboxDelExpenses(){
                 $('#removeExpenses').html('No data found.');
             }
         },
-        error: function (xhr, status, error) {
+        error: function (error) {
             $('#removeExpenses').html('Error: ' + error);
         }
     })   
@@ -228,7 +228,7 @@ function expensesTableData(data, type) {
         for (var i = 0; i < data.length; i++) {
             table += '<tr>';
             table += '<input type="hidden" name="ExpenseID[]" value="' + data[i].ExpenseID + '">';
-            table += '<td><input type="number" name="Amount[]" value="' + data[i].Amount + '"></td>';
+            table += '<td><input type="number" name="Amount[]" value="' + data[i].Amount + '" step="0.01"></td>';
             table += '<td><input type="text" name="Category[]" value="' + data[i].Category + '"></td>';
             table += '<td><input type="date" name="DateOfExpense[]" value="' + data[i].DateOfExpense + '"></td>';
             table += '<td><input type="text" name="Description[]" value="' + data[i].Description + '"></td>';
